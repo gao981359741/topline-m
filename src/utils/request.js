@@ -8,7 +8,7 @@ import jsonBig from 'json-bigint'
 const request = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn/' // 基础路径
 })
-// data后端返回的原始数据
+// data后端返回的原始数据  处理了id失真问题
 request.defaults.transformResponse = [function (data) {
   // 如果转换成功则返回成功的结果给请求使用
   try {
