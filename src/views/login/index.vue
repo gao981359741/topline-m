@@ -11,17 +11,18 @@
          rules  配置校验规则
          v-slot="{ errors }" 获取校验失败的错误提示消息
      -->
-     <validationObserver>
-       <validationProvider name="手机号" rules="required" v-slot="{ errors }">
+     <validationObserver ref="form">
+       <!-- immediate初始时自动效验 -->
+       <validationProvider name="手机号" rules="required|mobile" immediate>
       <van-field
       v-model="user.mobile"
        clearable
        class="iconfont icon-shouji"
        placeholder="请输入手机号" />
-        <span>{{ errors[0] }}</span>
+
     </validationProvider>
 
-  <validationProvider>
+  <validationProvider name="验证码" rules="required|code" immediate>
       <van-field
        v-model="user.code"
       class="iconfont icon-iconfontmima1"  placeholder="请输入验证码" >
@@ -69,6 +70,25 @@ export default {
       // 1.获取表单数据
       const user = this.user
       // 2.表单验证
+      // 验证成功success为true,否则为false
+      // validate返回promise
+      const success = await this.$refs.form.validate()
+      // 如果验证的信息失败，则轻提示
+      if (!success) {
+        // 获取errors
+        const errors = this.$refs.form.errors
+        // 遍历
+        for (let key in errors) {
+          // 拿到每一项
+          const item = errors[key]
+          if (item[0]) {
+            this.$toast(item[0])
+            // 找到第一个有错误的消息，给出提示，停止遍历
+            return
+          }
+        }
+        return
+      }
 
       // 当点击登录按钮时的友好提示
       this.$toast.loading({
@@ -83,7 +103,7 @@ export default {
         // 提示成功
         this.$toast.success('登录成功')
       } catch (err) {
-        this.$toast.fail('登录失败')
+        this.$toast.fail('登录失败,手机号或验证码不正确')
       }
 
       // 4.根据后端返回结果执行后续业务处理
