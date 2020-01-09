@@ -10,7 +10,8 @@ import {
   Icon,
   NavBar,
   Field,
-  Toast
+  Toast,
+  CountDown
 } from 'vant'
 
 // 注册
@@ -21,3 +22,4 @@ Vue.use(Button)
   .use(NavBar)
   .use(Field)
   .use(Toast)
+  .use(CountDown)
