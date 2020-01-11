@@ -17,8 +17,8 @@ import {
   Image,
   Grid, // 宫格组件
   GridItem,
-  Dialog,
-  List// 弹出框
+  Dialog, // 弹出框
+  List// 列表
 } from 'vant'
 
 // 注册
