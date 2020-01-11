@@ -30,3 +30,13 @@ export const getUserInfo = () => {
 
   })
 }
+
+// 获取指定用户登录信息接口
+export const getUserById = userId => {
+  // 具体的请求代码
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/users/${userId}`
+
+  })
+}

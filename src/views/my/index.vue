@@ -18,7 +18,7 @@
       <van-grid class="data-info" :border="false">
         <van-grid-item>
           <span class="count">{{user.art_count}}</span>
-          <span class="text">头条</span>
+          <span class="text">发布</span>
         </van-grid-item>
         <van-grid-item>
           <span class="count">{{user.follow_count}}</span>
