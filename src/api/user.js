@@ -21,3 +21,12 @@ export const getSmsCode = mobile => {
 
   })
 }
+// 获取当前登录用户信息接口
+export const getUserInfo = () => {
+  // 具体的请求代码
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user'
+
+  })
+}

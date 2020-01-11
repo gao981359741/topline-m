@@ -9,27 +9,27 @@
             class="avatar"
             round
             fit="cover"
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            :src="user.photo"
           />
-          <div class="title">黑马程序员</div>
+          <div class="title">{{user.name}}</div>
         </div>
         <van-button round size="mini">编辑资料</van-button>
       </div>
       <van-grid class="data-info" :border="false">
         <van-grid-item>
-          <span class="count">123</span>
+          <span class="count">{{user.art_count}}</span>
           <span class="text">头条</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+          <span class="count">{{user.follow_count}}</span>
           <span class="text">关注</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+          <span class="count">{{user.fans_count}}</span>
           <span class="text">粉丝</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+          <span class="count">{{user.like_count}}</span>
           <span class="text">获赞</span>
         </van-grid-item>
       </van-grid>
@@ -73,18 +73,42 @@
 </template>
 
 <script>
+// 引入封装的用户信息
+import { getUserInfo } from '@/api/user'
+
 export default {
   name: 'MyPage',
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      user: {}// 使用引入封装的用户信息
+    }
   },
   computed: {},
   watch: {},
-  created () {},
+  // 渲染时调用
+  created () {
+    // 如果有令牌才去渲染数据
+    if (this.$store.state.user) {
+      this.loadUser()
+    }
+  },
+  // 渲染后调用
   mounted () {},
-  methods: {}
+  methods: {
+    async loadUser () {
+      try {
+        // 这个data代表返回的所有数据
+        const { data } = await getUserInfo()
+        // 通过调试工具发现每一个单独的数据是一个data对象所以
+        this.user = data.data
+      } catch (err) {
+        console.log(err)
+        this.$toast('获取数据失败')
+      }
+    }
+  }
 }
 </script>
 
