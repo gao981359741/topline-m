@@ -32,6 +32,10 @@ const routes = [
         component: () => import('@/views/video')
       }
     ]
+  }, {
+    path: './user/:userId', // id是动态的所以:userId
+    name: 'user',
+    component: () => import('@views/user')
   }
 ]
 

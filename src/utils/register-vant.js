@@ -17,7 +17,8 @@ import {
   Image,
   Grid, // 宫格组件
   GridItem,
-  Dialog// 弹出框
+  Dialog,
+  List// 弹出框
 } from 'vant'
 
 // 注册
@@ -35,3 +36,4 @@ Vue.use(Button)
   .use(Grid)
   .use(GridItem)
   .use(Dialog)
+  .use(List)
