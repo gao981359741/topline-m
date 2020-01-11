@@ -16,7 +16,8 @@ import {
   TabbarItem,
   Image,
   Grid, // 宫格组件
-  GridItem
+  GridItem,
+  Dialog// 弹出框
 } from 'vant'
 
 // 注册
@@ -33,3 +34,4 @@ Vue.use(Button)
   .use(Image)
   .use(Grid)
   .use(GridItem)
+  .use(Dialog)
