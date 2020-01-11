@@ -11,7 +11,12 @@ import {
   NavBar,
   Field,
   Toast,
-  CountDown
+  CountDown,
+  Tabbar,
+  TabbarItem,
+  Image,
+  Grid, // 宫格组件
+  GridItem
 } from 'vant'
 
 // 注册
@@ -23,3 +28,8 @@ Vue.use(Button)
   .use(Field)
   .use(Toast)
   .use(CountDown)
+  .use(Tabbar)
+  .use(TabbarItem)
+  .use(Image)
+  .use(Grid)
+  .use(GridItem)

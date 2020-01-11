@@ -6,7 +6,32 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login')// 按需加载
+  }, {
+    path: '/',
+    name: 'tab-bar',
+    component: () => import('@/views/tab-bar'), // 按需加载
+    // 子路由
+    children: [
+      {
+        path: '', // 默认配置子路由
+        name: 'home',
+        component: () => import('@/views/home')
+      }, {
+        path: 'my',
+        name: 'my',
+        component: () => import('@/views/my')
+      }, {
+        path: 'qa',
+        name: 'qa',
+        component: () => import('@/views/qa')
+      }, {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/video')
+      }
+    ]
   }
 ]
 

@@ -52,6 +52,7 @@
 
 <script>
 import { login, getSmsCode } from '@/api/user'
+import { validate } from 'vee-validate'// 表单验证包
 
 export default {
   name: 'LoginPage',
@@ -98,10 +99,14 @@ export default {
       })
       // 3.请求登录
       try {
-        const res = await login(user)
-        console.log(res)
+        const { data } = await login(user)
+        console.log(data)
+        // 将登录成功获取的用户信息token相关的数据储存到Vuex容器
+        this.$store.commit('setUser', data.data)
         // 提示成功
         this.$toast.success('登录成功')
+        // 跳转到首页
+        this.$router.push('/')
       } catch (err) {
         this.$toast.fail('登录失败,手机号或验证码不正确')
       }
@@ -114,6 +119,21 @@ export default {
         // 解构赋值拿到手机号
         const { mobile } = this.user
         // 1.验证手机号是否有效
+        // 参数1：要验证的数据  这里指mobile
+        // 参数2：验证规则 规则和规则之间用管道分割
+        // 参数3：一个可选的配置对象
+        // validateResult返回值：{valid，errors.......}
+        //          valid: 验证是否成功，成功 true，失败 false
+        //          errors：一个数组，错误提示消息
+        const validateResult = await validate(mobile, 'required|mobile', {
+          name: '手机号'
+        })
+
+        // 如果验证失败，提示错误消息，停止发送验证码
+        if (!validateResult.valid) {
+          this.$toast(validateResult.errors[0])
+          return
+        }
         // 2.请求发送短信验证码
         const res = await getSmsCode(mobile)
         console.log(res)
