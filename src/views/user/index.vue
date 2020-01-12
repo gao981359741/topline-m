@@ -1,7 +1,7 @@
 <template>
 <div class="user-container">
     <!-- left-arrow组件里的  箭头 -->
-    <van-nav-bar left-arrow :title="user.name"></van-nav-bar>
+    <van-nav-bar left-arrow :title="user.name" @click-left='$router.back()'></van-nav-bar>
     <!-- 当前用户登录信息 -->
      <!-- 用户信息 -->
     <div class="user-info-container">

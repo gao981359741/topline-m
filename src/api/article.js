@@ -5,6 +5,7 @@ export const getArticlesByUser = (userId, params) => {
   // 具体的请求代码
   return request({
     method: 'GET',
+    // 这里出现了问题，地址前面多了一个空格，导致获取不到数据
     url: `/app/v1_0/users/${userId}/articles`,
     params
 
