@@ -13,8 +13,10 @@
   v-for="channel in userChannels"
   :key="channel.id"
   >
-    <!-- 文章列表 -->
-
+    <!-- 文章列表组件 -->
+    <article-list
+    :channel='channel'
+    ></article-list>
   </van-tab>
 </van-tabs>
   </div>
@@ -22,14 +24,17 @@
 
 <script>
 import { getUserChannels } from '@/api/channel'
+import ArticleList from './components/article-list'
 export default {
   name: 'HomePage',
+  components: { ArticleList },
   data () {
     return {
       active: 0, // 控制激活的标签页
       userChannels: []// 用户频道列表
     }
   },
+
   created () {
     // 加载用户频道列表
     this.loadUserChannels()
