@@ -21,7 +21,8 @@ import {
   List, // 列表
   Tab, // 标签页
   Tabs,
-  PullRefresh// 下拉刷新
+  PullRefresh, // 下拉刷新
+  Popup// 弹出层
 } from 'vant'
 
 // 注册
@@ -43,3 +44,4 @@ Vue.use(Button)
   .use(Tab)
   .use(Tabs)
   .use(PullRefresh)
+  .use(Popup)

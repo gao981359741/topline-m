@@ -6,7 +6,6 @@
     <!-- 频道列表
     v-model="active"控制激活的标签
     title标签标题
-
     -->
 <van-tabs v-model="active">
   <van-tab :title="channel.name"
@@ -19,6 +18,16 @@
     ></article-list>
   </van-tab>
 </van-tabs>
+  <!-- 编辑频道 -->
+    <van-popup
+      v-model="isChannelEditShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+      round
+      closeable
+      close-icon-position="top-left"
+    />
+
   </div>
 </template>
 
@@ -31,7 +40,8 @@ export default {
   data () {
     return {
       active: 0, // 控制激活的标签页
-      userChannels: []// 用户频道列表
+      userChannels: [], // 用户频道列表
+      isChannelEditShow: true
     }
   },
 
