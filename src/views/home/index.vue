@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
  <!-- 最上面的登录 -->
-    <van-nav-bar title="首页"></van-nav-bar>
+    <van-nav-bar title="首页" fixed></van-nav-bar>
 
     <!-- 频道列表
     v-model="active"控制激活的标签
@@ -54,6 +54,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped lang='less'>
+.home-container {
+  padding-top: 90px;
+  padding-bottom: 50px;
+}
+/deep/ .van-tabs__wrap {
+  position: fixed;
+  top: 46px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
 </style>
