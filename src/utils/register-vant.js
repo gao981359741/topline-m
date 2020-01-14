@@ -20,7 +20,8 @@ import {
   Dialog, // 弹出框
   List, // 列表
   Tab, // 标签页
-  Tabs
+  Tabs,
+  PullRefresh// 下拉刷新
 } from 'vant'
 
 // 注册
@@ -41,3 +42,4 @@ Vue.use(Button)
   .use(List)
   .use(Tab)
   .use(Tabs)
+  .use(PullRefresh)

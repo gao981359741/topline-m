@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './utils/register-vant'
+import './utils/register-vant'// 里面是vant组件
 // REM适配：动态设置 html 标签字体大小
 import 'amfe-flexible'
 // 加载全局样式
