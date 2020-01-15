@@ -5,7 +5,7 @@ import Vue from 'vue'
 // 加载
 import {
   Button,
-  Cell,
+  Cell, // 单元格
   CellGroup,
   Icon,
   NavBar,

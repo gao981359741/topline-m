@@ -33,17 +33,23 @@
       round
       closeable
       close-icon-position="top-left"
-    />
+    >
+    <!-- 放入频道弹层组件 -->
+    <channel-edit></channel-edit>
+    </van-popup>
 
   </div>
 </template>
 
 <script>
+// 加载
 import { getUserChannels } from '@/api/channel'
 import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
 export default {
   name: 'HomePage',
-  components: { ArticleList },
+  // 注册组件
+  components: { ArticleList, ChannelEdit },
   data () {
     return {
       active: 0, // 控制激活的标签页
