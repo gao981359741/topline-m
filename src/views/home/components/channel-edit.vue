@@ -16,7 +16,9 @@
    <van-grid :gutter="10" clickable>
       <van-grid-item v-for="channel in remainingChannels"
       :key="channel.id"
-      :text="channel.name" />
+      :text="channel.name"
+      @click="Addchannel(channel)"
+      />
     </van-grid>
   </div>
 </template>
@@ -65,6 +67,10 @@ export default {
     async loadAllChannels () {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
+    },
+    // 编辑添加频道
+    Addchannel (channel) {
+      this.userChannels.push(channel)
     }
   }
 }
