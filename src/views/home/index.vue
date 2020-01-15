@@ -34,8 +34,10 @@
       closeable
       close-icon-position="top-left"
     >
-    <!-- 放入频道弹层组件 -->
-    <channel-edit></channel-edit>
+    <!-- 放入频道弹层组件
+    :user-channel="userChannels"父传子
+    -->
+    <channel-edit :user-channels="userChannels"></channel-edit>
     </van-popup>
 
   </div>
