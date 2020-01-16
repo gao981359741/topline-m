@@ -15,9 +15,13 @@
     <van-grid :gutter="10" clickable>
       <van-grid-item v-for="(channel,index) in userChannels"
       :key="channel.id"
-      :text="channel.name"
       @click="onUserChannelClick(index)"
       >
+      <span slot="text"
+      class="text"
+      :class="{
+            active: index === active
+          }">{{channel.name}} </span>
         <van-icon slot="icon" name="close" v-show="isEditShow&&!index==0" />
       </van-grid-item>
     </van-grid>
@@ -46,6 +50,10 @@ export default {
       // 数组类型
       type: Array,
       // 文档固定写法
+      required: true
+    },
+    active: {
+      type: Number,
       required: true
     }
   },
@@ -117,9 +125,12 @@ export default {
     .van-grid-item__content {
       background: #f4f5f6;
     }
-    .van-grid-item__text {
+    .van-grid-item__text ,.text{
       font-size: 14px;
       color: #222;
+    }
+    .active{
+        color: red
     }
   }
 }
