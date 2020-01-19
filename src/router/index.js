@@ -36,6 +36,11 @@ const routes = [
     path: '/user/:userId', // id是动态的所以:userId
     name: 'user',
     component: () => import('@/views/user')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search')
   }
 ]
 
