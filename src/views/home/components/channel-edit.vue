@@ -41,6 +41,7 @@
 <script>
 // 所有频道接口
 import { getAllChannels } from '@/api/channel'
+import { setItem } from '@/utils/storage'// 本地存储
 
 export default {
   name: 'ChannelEdit',
@@ -62,6 +63,15 @@ export default {
       allChannels: [], // 所有频道
       isEditShow: false// 默认叉号隐藏   编辑状态
     }
+  },
+  // 监视
+  watch: {
+    // 当userChannels发生变化，会调用该函数  newVal变化后的最新数据
+    userChannels (newVal) {
+      // 同步到本地存储
+      setItem('user-channels', newVal)
+    }
+
   },
   computed: {
     // 剩余的频道
