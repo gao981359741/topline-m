@@ -19,10 +19,11 @@
     <!-- 联想建议 -->
     <van-cell-group v-else-if="searchContent">
       <van-cell icon="search"
-      :title="item"
       v-for="(item,index) in suggestions"
       :key="index"
-      />
+      >
+      <div slot="title" v-html="highlight(item)"></div>
+      </van-cell>
 
     </van-cell-group>
 
@@ -85,6 +86,15 @@ export default {
       // 2.将数据添加到组件实例中
       this.suggestions = data.data.options
       // 3.模板绑定
+    },
+    // 高亮
+    highlight (str) {
+      // 搜索内容
+      const searchContent = this.searchContent
+      //  /searchContent/正则表达式中的一切内容都会当做字符串使用
+      //  这里可以 new RegExp方式根据字符串创建一个正则表达式
+      const reg = new RegExp(searchContent, 'gi')
+      return str.replace(reg, `<span style='color:#3296fa'>${searchContent}</span>`)
     }
 
   }
