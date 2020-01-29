@@ -1,28 +1,39 @@
 <template>
   <div class="search-container">
     <!-- 搜索栏 -->
-    <form action="/">
+    <form class="search-form" action="/">
       <van-search
         v-model="searchContent"
         placeholder="请输入搜索关键词"
         show-action
         @search="onSearch"
         @cancel="onCancel"
+        @focus="isSearchResultShow=false"
+        @input="onSearchInput"
       />
     </form>
+
+    <!-- 搜索结果 -->
+<search-result v-if="isSearchResultShow"></search-result>
+
     <!-- 联想建议 -->
-    <van-cell-group>
-      <van-cell icon="search" title="单元格" />
-      <van-cell icon="search" title="单元格" />
+    <van-cell-group v-else-if="searchContent">
+      <van-cell icon="search"
+      :title="item"
+      v-for="(item,index) in suggestions"
+      :key="index"
+      />
+
     </van-cell-group>
+
     <!-- 历史记录 -->
-    <van-cell title="历史记录">
+    <van-cell-group v-else>
+       <van-cell title="历史记录">
       <van-icon name="delete" />&nbsp;&nbsp;
       <span>全部删除</span>
       &nbsp;&nbsp;
       <span>完成</span>
     </van-cell>
-    <van-cell-group>
       <van-cell title="单元格">
         <van-icon name="close" />
       </van-cell>
@@ -30,58 +41,69 @@
         <van-icon name="close" />
       </van-cell>
     </van-cell-group>
-    <!-- 搜索结果 -->
-    <van-list
-  v-model="loading"
-  :finished="finished"
-  finished-text="没有更多了"
-  @load="onLoad"
->
-  <van-cell
-    v-for="item in list"
-    :key="item"
-    :title="item"
-  />
-</van-list>
+
   </div>
 </template>
 
 <script>
+import SearchResult from './components/search-result'
+import { getSuggestions } from '@/api/search'
+
 export default {
   name: 'SearchPage',
+  components: {
+    SearchResult
+  },
   data () {
     return {
       searchContent: '', // 搜索内容
-      list: [],
-      loading: false,
-      finished: false
+      isSearchResultShow: false, // 是否展示搜索结果
+      suggestions: []// 联想建议  打印出data下面的options是数组，所以定义suggestions为空数组
     }
   },
   methods: {
+    // 确认搜索时触发
     onSearch () {
       console.log('onSearch')
+      // 展示搜索结果
+      this.isSearchResultShow = true
     },
+    // 点击取消按钮时触发
     onCancel () {
       console.log('onCancel')
     },
-    onLoad () {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
+    // 输入框内容变化时触发
+    async onSearchInput () {
+      // 搜索内容
+      const searchContent = this.searchContent
+      if (!searchContent) {
+        return
+      }
+      // 1.请求获取数据
+      const { data } = await getSuggestions(searchContent)
+      console.log(data)
+      // 2.将数据添加到组件实例中
+      this.suggestions = data.data.options
+      // 3.模板绑定
     }
+
   }
 }
 </script>
 
-<style>
+<style scoped lang="less">
+.search-container {
+  padding-top: 54px;
+  // 让搜索栏固定在顶部
+  .search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .van-search__action {
+    color: #fff;
+  }
+}
 </style>
