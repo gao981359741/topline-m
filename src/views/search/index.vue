@@ -14,7 +14,10 @@
     </form>
 
     <!-- 搜索结果 -->
-<search-result v-if="isSearchResultShow"></search-result>
+<search-result
+v-if="isSearchResultShow"
+:q="searchContent"
+></search-result>
 
     <!-- 联想建议 -->
     <van-cell-group v-else-if="searchContent">

@@ -16,30 +16,38 @@
 </template>
 
 <script>
+import { getSearch } from '@/api/search'
+
 export default {
   name: 'SearchResult',
+  props: {
+    q: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      page: 1, // 页码
+      per_page: 20// 每页20
     }
   },
   methods: {
-    onLoad () {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
+    async onLoad () {
+      // 1.请求获取数据
+      const { data } = await getSearch({
+        page: this.page, // 页码
+        per_page: this.per_page, // 每页大小
+        q: this.q// 搜索关键字
+      })
+      // 2.将数据添加到列表
+      const { results } = data.data
 
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
+      // 3.关闭本次的loading
+      // 4.判断是否还有数据
     }
   }
 }
